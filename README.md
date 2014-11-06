@@ -2,13 +2,12 @@
 
 ## Todolist
 
-API __http://api.atnd.org/events/__
+API http://api.atnd.org/events/  
 
 
--[ ] Search
-    - Prefecture
-    - Keyword
-    - Dates
+- [ ] Search  
+    - Prefecture  
+    - Keyword  
+    - Dates  
 
--[ ] Regular notification
-
+- [ ] Regular notification  
