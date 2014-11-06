@@ -1,1 +1,1 @@
-web: bin/hubot --adapter slack -n searcher
+web: bin/hubot --adapter slack
