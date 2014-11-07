@@ -56,21 +56,7 @@ module.exports = (robot) ->
   mySetting = new setLocalData today
 
   # search event
-
   # keywords
-
-  # date
-  ###
-  robot.respond /today/i, (msg) ->
-    if localKeywords.length is 0
-      cat = new accessApi()
-      msg.reply cat.getJson()
-      # msg.reply cat.todayEvent()
-    # option keywords
-    #msg.reply today
-  ###
-
-  # select date
   ###
   robot.respond /date (.*)$/i, (msg) ->
     # msg.reply mySetting.localData.today
