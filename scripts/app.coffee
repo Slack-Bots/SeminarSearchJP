@@ -1,7 +1,9 @@
 'use strict'
 
-async = require 'async'
-fs    = require 'fs'
+async      = require 'async'
+fs         = require 'fs'
+httpClient = require 'scoped-http-client'
+
 # debug
 util  = require 'util'
 
@@ -35,12 +37,16 @@ class setLocalData
 
 class accessApi
   # API
-  url = 'http://api.atnd.org/events/'
+  url = 'http://api.atnd.org/events/?format=json'
 
-  constructor: (debug = false) ->
+  #constructor: () ->
 
-  getJson: (dateStr, keywords) ->
-
+  getJson: (callback) ->
+    httpClient.create(url).get() (err,res,body) =>
+      try
+        callback(JSON.parse(body))
+      catch e
+        callback('e')
 
 module.exports = (robot) ->
 
@@ -50,6 +56,7 @@ module.exports = (robot) ->
   mySetting = new setLocalData today
 
   # search event
+
   # keywords
 
   # date
@@ -64,11 +71,25 @@ module.exports = (robot) ->
   ###
 
   # select date
+  ###
   robot.respond /date (.*)$/i, (msg) ->
     # msg.reply mySetting.localData.today
     msg.reply 'test'
+  ###
+  api = new accessApi()
 
-  # help
+  robot.respond /t$/i, (msg) ->
+    async.waterfall [
+      (callback)->
+        api.getJson((json) ->
+          if(json == 'e')
+            msg.send 'Error :('
+          else
+            msg.send json["results_returned"]
+        )
+    ]
+
+
   robot.respond /help$/i, (msg) ->
     msg.reply ':)'
 
