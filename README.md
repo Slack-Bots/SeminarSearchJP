@@ -2,7 +2,8 @@
 
 ## Todolist
 
-API http://api.atnd.org/events/  
+###API 
+http://api.atnd.org/events/  
 
 
 - [ ] Search  
@@ -11,3 +12,14 @@ API http://api.atnd.org/events/
     - Dates  
 
 - [ ] Regular notification  
+
+## Robot Respond word
+- [ ] today  
+- [ ] help  
+
+## Set words in info.json
+- [ ] keywords  
+
+## Const words
+- today  
+- keywords  
