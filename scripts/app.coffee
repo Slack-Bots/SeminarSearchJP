@@ -38,11 +38,14 @@ class setLocalData
 class accessApi
   # API
   url = 'http://api.atnd.org/events/?format=json'
-
-  #constructor: () ->
-
+  # http://api.atnd.org/events/?keyword_or=google,cloud&format=atom
   getJson: (conditions, callback) ->
-    console.log(conditions)
+    console.log conditions
+    for i in [0 ... conditions.length]
+      url += '&'
+      url += (conditions[i].key + '=' + conditions[i].value)
+
+    console.log url
     httpClient.create(url).get() (err , res, body) =>
       try
         callback(JSON.parse(body))
@@ -70,15 +73,34 @@ module.exports = (robot) ->
       ###
       parseConditionsArray = []
       # index 0 is bot-name
-      for i in [1..conditionsArray.length-1]
+      for i in [1 ... conditionsArray.length]
         obj = {}
         # const words
         if conditionsArray[i] is 'today'
           obj.key = 'ymd'
           obj.value = mySetting.getLocalData().today
+
         else
           obj.key = conditionsArray[i].split(':')[0]
           obj.value = conditionsArray[i].split(':')[1]
+
+          switch obj.key
+            # when 'keyword'
+              # 'and' or 'or' 
+            when 'date'
+              obj.key = 'ymd'
+            when 'name'
+              obj.key = 'nickname'
+            when 'twitter'
+              obj.key = 'twitter_id'
+            when 'oname'
+              obj.key = 'owner_nickname'
+            when 'otwitter'
+              obj.key = 'owner_twitter_id'
+            else
+              msg.send 'Syntax Error :('
+              break
+
         parseConditionsArray.push obj
 
       #console.log(parseConditionsArray)
@@ -92,18 +114,6 @@ module.exports = (robot) ->
               msg.reply json["results_returned"]
           )
       ]
-
-  robot.respond /t$/i, (msg) ->
-    async.waterfall [
-      (callback)->
-        api.getJson((json) ->
-          if(json == 'e')
-            msg.send 'Error :('
-          else
-            msg.reply json["results_returned"]
-        )
-    ]
-
 
   robot.respond /help$/i, (msg) ->
     msg.reply ':)'
