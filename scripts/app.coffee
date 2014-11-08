@@ -71,7 +71,7 @@ module.exports = (robot) ->
           if(json == 'e')
             msg.send 'Error :('
           else
-            msg.send json["results_returned"]
+            msg.reply json["results_returned"]
         )
     ]
 
