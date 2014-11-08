@@ -7,8 +7,8 @@ http://api.atnd.org/events/
 
 
 - [ ] Search  
-    - keyword or,and    
-    - dates  
+    - keywords or,and    
+    - date  
     - user_id  
     - nickname  
     - twitter_id  
@@ -32,8 +32,9 @@ http://api.atnd.org/events/
 ```  
 user     > bot-name s|search  
 bot-name > ok... (show syntax)  
-user     > (input the condition that you want to look for)    
+user     > bot-name (input the condition that you want to look for)    
 bot-name > return results
 ```
-
+## Syntax
+`keyword:hoge|huga keyword:hoge&fuga date:20141109 nickname:piyo .....`  
 
