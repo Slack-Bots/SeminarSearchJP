@@ -85,8 +85,16 @@ module.exports = (robot) ->
           obj.value = conditionsArray[i].split(':')[1]
 
           switch obj.key
-            # when 'keyword'
+            when 'keyword','k'
               # 'and' or 'or' 
+              if obj.key is 'k'
+                obj.key = 'keyword'
+              if obj.value.indexOf('|') isnt -1 and obj.value.indexOf('&') is -1
+                obj.key = 'keyword_or'
+                obj.value = obj.value.replace '|',','
+              else
+                obj.value = obj.value.replace '&',','
+
             when 'date'
               obj.key = 'ymd'
             when 'name'
@@ -99,7 +107,7 @@ module.exports = (robot) ->
               obj.key = 'owner_twitter_id'
             else
               msg.send 'Syntax Error :('
-              break
+              return
 
         parseConditionsArray.push obj
 
@@ -114,15 +122,19 @@ module.exports = (robot) ->
               eventsArray = json["events"]
               msgStr = ""
               for i in [0 ... eventsArray.length]
-                #console.log eventsArray[i].event.title
-                #msgStr += ('<' + eventsArray[i].event.event_url +'|'+eventsArray[i].event.title + '>' + '\n')
                 if eventsArray[i].event.limit is null
                    eventsArray[i].event.limit = 'unset'
 
-                msgStr += '<' + eventsArray[i].event.event_url + '|' + eventsArray[i].event.title + '>' + '\n' + eventsArray[i].event.started_at + ' ~ ' + eventsArray[i].event.ended_at + '\n' + eventsArray[i].event.catch + '\n' + 'capacity: '+ eventsArray[i].event.limit + ' participants: ' + eventsArray[i].event.accepted + '\n'+ 'place: ' +eventsArray[i].event.place + '\n\n'
-                #msgStr += eventsArray[i].event +'\n'
+                line1 = "<#{eventsArray[i].event.event_url}|#{eventsArray[i].event.title}>\n"
+                line2 = "#{eventsArray[i].event.started_at} ~ #{eventsArray[i].event.ended_at}\n"
+                line3 = "#{eventsArray[i].event.catch}\n"
+                if line3 is "\n"
+                  line3 = ""
+                line4 = "capacity:#{eventsArray[i].event.limit}  participants:#{eventsArray[i].event.accepted}\n"
+                line5 = "place:#{eventsArray[i].event.place}\n"
+                msgStr += (line1 + line2 + line3 + line4 + line5 + "\n") 
               msgStr = msgStr.replace /\s+$/, ''
-              msg.reply msgStr
+              msg.send msgStr
           )
       ]
 
