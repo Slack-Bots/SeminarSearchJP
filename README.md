@@ -39,17 +39,17 @@ bot-name > return results
 ## Syntax
 `keyword:hoge|huga keyword:hoge&fuga date:20141109 name:piyo .....`  
 - keyword  
-    - hoge&fuga -> `keyword=hoge,fuga`  
-    - hoge|fuga -> `keyword_or=hoge,fuga`  
+    - hoge&fuga  -> `keyword=hoge,fuga`  
+    - hoge|fuga  -> `keyword_or=hoge,fuga`  
 - date  
-    - 20141109 -> `ymd=20141109`  
+    - 20141109   -> `ymd=20141109`  
 - name  
-    - hoge -> `nickname=hoge`  
+    - hoge       -> `nickname=hoge`  
 - twitter  
-    - hoge -> `twitter_id=hoge`  
+    - hoge       -> `twitter_id=hoge`  
 - oname  
-    - hoge -> `owner_nickname=hoge`  
+    - hoge       -> `owner_nickname=hoge`  
 - otwitter  
-    - hoge -> `owner_twitter_id=hoge`  
+    - hoge       -> `owner_twitter_id=hoge`  
 
 
