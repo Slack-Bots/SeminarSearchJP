@@ -111,7 +111,18 @@ module.exports = (robot) ->
             if(json == 'e')
               msg.send 'Error :('
             else
-              msg.reply json["results_returned"]
+              eventsArray = json["events"]
+              msgStr = ""
+              for i in [0 ... eventsArray.length]
+                #console.log eventsArray[i].event.title
+                #msgStr += ('<' + eventsArray[i].event.event_url +'|'+eventsArray[i].event.title + '>' + '\n')
+                if eventsArray[i].event.limit is null
+                   eventsArray[i].event.limit = 'unset'
+
+                msgStr += '<' + eventsArray[i].event.event_url + '|' + eventsArray[i].event.title + '>' + '\n' + eventsArray[i].event.started_at + ' ~ ' + eventsArray[i].event.ended_at + '\n' + eventsArray[i].event.catch + '\n' + 'capacity: '+ eventsArray[i].event.limit + ' participants: ' + eventsArray[i].event.accepted + '\n'+ 'place: ' +eventsArray[i].event.place + '\n\n'
+                #msgStr += eventsArray[i].event +'\n'
+              msgStr = msgStr.replace /\s+$/, ''
+              msg.reply msgStr
           )
       ]
 
