@@ -125,7 +125,7 @@ module.exports = (robot) ->
                 if eventsArray[i].event.limit is null
                    eventsArray[i].event.limit = 'unset'
 
-                line1 = "<#{eventsArray[i].event.event_url}|#{eventsArray[i].event.title}>\n"
+                line1 = "<#{eventsArray[i].event.event_url}|\"#{eventsArray[i].event.title}\">\n"
                 line2 = "#{eventsArray[i].event.started_at} ~ #{eventsArray[i].event.ended_at}\n"
                 line3 = "#{eventsArray[i].event.catch}\n"
                 if line3 is "\n"
@@ -137,10 +137,3 @@ module.exports = (robot) ->
               msg.send msgStr
           )
       ]
-
-  robot.respond /help$/i, (msg) ->
-    msg.reply ':)'
-
-  # debug  
-  robot.respond /d$/i, (msg) ->
-    msg.send mySetting.getLocalData().keywords.length + ' ' +  mySetting.getLocalData().keywords
