@@ -21,10 +21,7 @@ http://api.atnd.org/
 - [ ] help  
 - [ ] s|search
 - [ ] n|nextpage  
-
-## Set words in info.json
-- [x] keywords  
-
+- 
 ## Const words
 - today  
 - keywords  
